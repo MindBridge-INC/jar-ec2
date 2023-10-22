@@ -1,8 +1,12 @@
--- DROP DATABASE if exists Mindbridge;
+DROP DATABASE if exists Mindbridge;
 CREATE DATABASE if not exists Mindbridge;
 USE Mindbridge;
 
-CREATE TABLE InstituicaoEnsino(
+CREATE USER IF NOT EXISTS 'admin'@'localhost' IDENTIFIED BY 'admin';
+
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
+
+CREATE TABLE IF NOT EXISTS InstituicaoEnsino(
 idInstituicaoEnsino INT PRIMARY KEY AUTO_INCREMENT,
 nomeEscola VARCHAR(50) NOT NULL,
 CNPJ INT NOT NULL,
@@ -21,7 +25,7 @@ modalidadeEnsino = 'Escola Técnica' OR modalidadeEnsino  = 'Universidade')
 
 insert into InstituicaoEnsino values (null, 'Colégio Santo André',473478393,24976910,'Avenida Sapopemba','8900',null,'Jardim Sapopemba', 'São Paulo','SP','1127689453','Escola');
 
-CREATE TABLE UsuarioInstituicao(
+CREATE TABLE IF NOT EXISTS UsuarioInstituicao(
 idAdmin INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(50) NOT NULL,
 sobrenome VARCHAR(50) NOT NULL,
@@ -34,7 +38,7 @@ FOREIGN KEY (fkInstituicao) REFERENCES InstituicaoEnsino(idInstituicaoEnsino)
 -- update UsuarioInstituicao set senha = "sptech123" where idAdmin = 1;
 -- select * from InstituicaoEnsino inner join UsuarioInstituicao;
 
-CREATE TABLE UsuarioAluno(
+CREATE TABLE IF NOT EXISTS UsuarioAluno(
 idAluno INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(50) NOT NULL,
 sobrenome VARCHAR(50) NOT NULL,
@@ -46,14 +50,14 @@ FOREIGN KEY (fkInstituicao) REFERENCES InstituicaoEnsino(idInstituicaoEnsino)
 
 insert into UsuarioAluno VALUES (null, 'Matheus', 'Lima', 'matheus.slima@sptech.school', 'sptech123', 1);
 
-CREATE TABLE Pontuacao(
+CREATE TABLE IF NOT EXISTS Pontuacao(
 idPontuacao INT PRIMARY KEY AUTO_INCREMENT,
 Pontos INT,
 fkAluno INT,
 FOREIGN KEY (fkAluno) REFERENCES UsuarioAluno(idAluno)
 );
 
-CREATE TABLE ociosidade (
+CREATE TABLE IF NOT EXISTS ociosidade (
 idOciosidade int primary key auto_increment,
 hora time,
 fkAluno int,
@@ -62,7 +66,7 @@ fkInstituicao int,
 FOREIGN KEY (fkInstituicao) REFERENCES InstituicaoEnsino(idInstituicaoEnsino)
 );
 
-CREATE TABLE programas(
+CREATE TABLE IF NOT EXISTS programas(
 idProgramas int primary key,
 nome varchar(45),
 fkAluno int,
@@ -71,20 +75,20 @@ fkInstituicao int,
 FOREIGN KEY (fkInstituicao) REFERENCES InstituicaoEnsino(idInstituicaoEnsino)
 );
 
-CREATE TABLE Sala(
+CREATE TABLE IF NOT EXISTS Sala(
 idSala INT PRIMARY KEY AUTO_INCREMENT,
 Numero INT,
 Andar INT,
 fkInstituicao INT,
 FOREIGN KEY (fkInstituicao) REFERENCES InstituicaoEnsino(idInstituicaoEnsino)
 );
-CREATE TABLE Turma(
+CREATE TABLE IF NOT EXISTS Turma(
 idTurma INT PRIMARY KEY auto_increment,
 nomeTurma VARCHAR(50),
 ano varchar(45)
 );
 
-CREATE TABLE Horario(
+CREATE TABLE IF NOT EXISTS Horario(
 idHorario INT PRIMARY KEY auto_increment,
 Inicio varchar(50),
 Fim varchar(50),
@@ -92,7 +96,7 @@ fkTurma INT,
 FOREIGN KEY (fkTurma) REFERENCES Turma(idTurma)
 );
 
-CREATE TABLE Maquinas(
+CREATE TABLE IF NOT EXISTS Maquinas(
 idMaquinas INT PRIMARY KEY AUTO_INCREMENT,
 IP INT NOT NULL,
 SistemaOperacional VARCHAR(50) NOT NULL,
@@ -105,7 +109,7 @@ fkSala INT,
 FOREIGN KEY (fkSala) REFERENCES Sala(idSala)
 );
 
-CREATE TABLE registroMaquina(
+CREATE TABLE IF NOT EXISTS registroMaquina(
 idRegistroMaquina INT PRIMARY KEY AUTO_INCREMENT,
 TemperaturaProcessador varchar(50),
 usoRam varchar(50),
@@ -118,7 +122,7 @@ fkMaquinas INT,
 FOREIGN KEY (fkMaquinas) REFERENCES Maquinas(idMaquinas)
 );
 
-CREATE TABLE Alertas(
+CREATE TABLE IF NOT EXISTS Alertas(
 idAlerta INT PRIMARY KEY AUTO_INCREMENT,
 dataHora DATETIME,
 fkMaquinas INT,
