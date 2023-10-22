@@ -19,7 +19,7 @@ CHECK (modalidadeEnsino = 'Escola' OR modalidadeEnsino = 'Escola de Cursos' OR
 modalidadeEnsino = 'Escola Técnica' OR modalidadeEnsino  = 'Universidade')
 );
 
-insert into instituicaoensino values (null, 'Colégio Santo André',473478393,24976910,'Avenida Sapopemba','8900',null,'Jardim Sapopemba', 'São Paulo','SP','1127689453','Escola');
+insert into InstituicaoEnsino values (null, 'Colégio Santo André',473478393,24976910,'Avenida Sapopemba','8900',null,'Jardim Sapopemba', 'São Paulo','SP','1127689453','Escola');
 
 CREATE TABLE UsuarioInstituicao(
 idAdmin INT PRIMARY KEY AUTO_INCREMENT,
