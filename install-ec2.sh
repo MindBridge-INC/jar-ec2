@@ -27,7 +27,15 @@ echo -e '\e[1;35m INSTALAR E CONFIGURAR DOCKER \e[m'
 
 if command -v docker &>/dev/null;
 	then
-		echo -e  '\e[1;36m Parece que o Docker já está instalado em seu dispositivo. Prosseguindo! \e[m'
+		echo -e  '\e[1;36m Parece que o Docker já está instalado em seu dispositivo. Prosseguindo com configurações! \e[m'
+		sudo systemctl start docker
+		sudo systemctl enable docker
+		sudo docker pull mysql:5.7
+		sudo docker run -d -p 3306:3306 --name ContainerMysql -e "MYSQL_DATABASE=Mindbridge_maquina" -e "MYSQL_ROOT_PASSWORD=buzzhenge" mysql:5.7
+		sudo docker exec -it ContainerMysql bash
+		curl -O https://raw.githubusercontent.com/MindBridge-INC/jar-ec2/main/script_create_mysql_docker.sql
+		mysql -h localhost -P 3306 -u root -p < script_create_mysql_docker.sql
+		exit
 	else
 		echo -e '\e[1;33m Parece que o Docker não está instalado em seu dispositivo. Instalando... \e[m'
 		
