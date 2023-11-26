@@ -40,20 +40,3 @@ CREATE TABLE JanelasAbertas (
 	fkMaquina INT NOT NULL,
 	foreign key (fkMaquina) references Maquina(id)
 );
-
-select * from maquina;
-select * from registromaquina;
-select * from alertas;
-select * from JanelasAbertas;
-
-select * from JanelasAbertas
-	WHERE comando NOT LIKE '%Windows%';
-    
-    SELECT JanelasAbertas.titulo, COUNT(JanelasAbertas.id) as QuantidadeUtilizada
-      FROM JanelasAbertas
-      JOIN Maquina ON JanelasAbertas.fkMaquina = Maquina.id
-      WHERE  JanelasAbertas.comando NOT LIKE '%Windows%'
-      GROUP BY JanelasAbertas.titulo
-		ORDER BY COUNT(JanelasAbertas.id) DESC
-      LIMIT 5;
-    
