@@ -46,7 +46,7 @@ if command -v docker &>/dev/null;
 			sudo docker pull mysql:5.7
 			sudo docker run -d -p 3306:3306 --name ContainerMysql -e "MYSQL_DATABASE=Mindbridge_maquina" -e "MYSQL_ROOT_PASSWORD=buzzhenge" mysql:5.7
 			sudo docker exec -it ContainerMysql bash
-			curl -LO https://raw.githubusercontent.com/MindBridge-INC/jar-ec2/main/script_create_mysql_docker.sql
+			ADD https://raw.githubusercontent.com/MindBridge-INC/jar-ec2/main/script_create_mysql_docker.sql
 			mysql -h localhost -P 3306 -u root -p < script_create_mysql_docker.sql
 			exit
 			exit
