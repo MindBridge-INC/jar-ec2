@@ -1,3 +1,4 @@
+DROP DATABASE Mindbridge_maquina;
 CREATE DATABASE IF NOT EXISTS Mindbridge_maquina;
 USE Mindbridge_maquina;
 
