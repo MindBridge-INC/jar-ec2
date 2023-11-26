@@ -33,12 +33,12 @@ if command -v docker &>/dev/null;
 		sudo docker pull mysql:5.7
 		sudo docker run -d -p 3306:3306 --name ContainerMysql -e "MYSQL_DATABASE=Mindbridge_maquina" -e "MYSQL_ROOT_PASSWORD=buzzhenge" mysql:5.7
 		sudo docker exec -it ContainerMysql bash
-		curl -O https://raw.githubusercontent.com/MindBridge-INC/jar-ec2/main/script_create_mysql_docker.sql
+		curl -LO https://raw.githubusercontent.com/MindBridge-INC/jar-ec2/main/script_create_mysql_docker.sql
 		mysql -h localhost -P 3306 -u root -p < script_create_mysql_docker.sql
+		exit
 		exit
 	else
 		echo -e '\e[1;33m Parece que o Docker não está instalado em seu dispositivo. Instalando... \e[m'
-		
 			sudo apt install docker.io
 			echo -e  '\e[1;36m Configurando Docker..... \e[m'
 			sudo systemctl start docker
@@ -46,8 +46,9 @@ if command -v docker &>/dev/null;
 			sudo docker pull mysql:5.7
 			sudo docker run -d -p 3306:3306 --name ContainerMysql -e "MYSQL_DATABASE=Mindbridge_maquina" -e "MYSQL_ROOT_PASSWORD=buzzhenge" mysql:5.7
 			sudo docker exec -it ContainerMysql bash
-			curl -O https://raw.githubusercontent.com/MindBridge-INC/jar-ec2/main/script_create_mysql_docker.sql
+			curl -LO https://raw.githubusercontent.com/MindBridge-INC/jar-ec2/main/script_create_mysql_docker.sql
 			mysql -h localhost -P 3306 -u root -p < script_create_mysql_docker.sql
+			exit
 			exit
 fi
 
